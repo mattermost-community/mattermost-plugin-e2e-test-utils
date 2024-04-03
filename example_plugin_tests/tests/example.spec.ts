@@ -10,6 +10,8 @@ type DemoPluginConfig = {
     clientId: string
 }
 
+const DEMO_PLUGIN_EXTERNAL_URL = 'https://github.com/mattermost/mattermost-plugin-demo/releases/download/v0.10.0/com.mattermost.demo-plugin-0.10.0.tar.gz';
+
 let mattermost: MattermostContainer;
 let demoPluginInstance: MattermostPlugin<DemoPluginConfig>;
 
@@ -20,7 +22,7 @@ test.beforeAll(async () => {
             clientId: 'client-id',
         },
     }).
-        withExternalURL('https://github.com/mattermost/mattermost-plugin-demo/releases/download/v0.10.0/com.mattermost.demo-plugin-0.10.0.tar.gz');
+        withExternalURL(DEMO_PLUGIN_EXTERNAL_URL);
 
     mattermost = await new MattermostContainer().
         withPlugin(demoPluginInstance).
