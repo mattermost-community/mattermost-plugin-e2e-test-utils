@@ -6,20 +6,19 @@ import {
     logout,
 } from 'mattermost-plugin-e2e-test-utils';
 
+type DemoPluginConfig = {
+    clientId: string
+}
+
 let mattermost: MattermostContainer;
-let demoPluginInstance: MattermostPlugin;
+let demoPluginInstance: MattermostPlugin<DemoPluginConfig>;
 
 test.beforeAll(async () => {
-    demoPluginInstance = new MattermostPlugin({
+    demoPluginInstance = new MattermostPlugin<DemoPluginConfig>({
         pluginId: 'com.mattermost.demo-plugin',
-        clientid: 'client-id',
-        clientsecret: 'client-secret',
-        connectedusersallowed: 1000,
-        encryptionkey: 'eyPBz0mBhwfGGwce9hp4TWaYzgY7MdIB',
-        maxSizeForCompleteDownload: 20,
-        maxsizeforcompletedownload: 20,
-        tenantid: 'tenant-id',
-        webhooksecret: 'webhook-secret',
+        pluginConfig: {
+            clientId: 'client-id',
+        },
     }).
         withExternalURL('https://github.com/mattermost/mattermost-plugin-demo/releases/download/v0.10.0/com.mattermost.demo-plugin-0.10.0.tar.gz');
 

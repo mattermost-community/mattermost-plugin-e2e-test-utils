@@ -25,7 +25,7 @@ export default class MattermostContainer {
     envs: {[key: string]: string};
     command: string[];
     configFile: any[];
-    plugins: MattermostPlugin[];
+    plugins: MattermostPlugin<unknown>[];
 
     constructor() {
         this.command = ['mattermost', 'server'];
@@ -110,10 +110,10 @@ export default class MattermostContainer {
         await this.container.exec(['mmctl', '--local', 'config', 'set', 'ServiceSettings.ListenAddress', `${containerPort}`]);
     };
 
-    installPluginFromLocalBinary = async (plugin: MattermostPlugin) => {
-        const {pluginId} = plugin.config;
+    installPluginFromLocalBinary = async (plugin: MattermostPlugin<unknown>) => {
+        const {pluginId} = plugin.options;
 
-        const patch = JSON.stringify({PluginSettings: {Plugins: {[pluginId]: plugin.config}}});
+        const patch = JSON.stringify({PluginSettings: {Plugins: {[pluginId]: plugin.options.pluginConfig}}});
 
         await this.container.copyFilesToContainer([{source: plugin.path, target: '/tmp/plugin.tar.gz'}]);
         await this.container.copyContentToContainer([{content: patch, target: '/tmp/plugin.config.json'}]);
@@ -123,7 +123,7 @@ export default class MattermostContainer {
         await this.container.exec(['mmctl', '--local', 'plugin', 'enable', pluginId]);
     };
 
-    installPluginFromUrl = async (plugin: MattermostPlugin) => {
+    installPluginFromUrl = async (plugin: MattermostPlugin<unknown>) => {
         const client = await this.getAdminClient();
         const manifest = await client.installPluginFromUrl(plugin.path);
         await this.container.exec(['mmctl', '--local', 'plugin', 'enable', manifest.id]);
@@ -157,7 +157,7 @@ export default class MattermostContainer {
         return this;
     };
 
-    withPlugin = (plugin: MattermostPlugin): MattermostContainer => {
+    withPlugin = (plugin: MattermostPlugin<unknown>): MattermostContainer => {
         this.plugins.push(plugin);
         return this;
     };
