@@ -21,7 +21,7 @@ test.beforeAll(async () => {
         tenantid: 'tenant-id',
         webhooksecret: 'webhook-secret',
     }).
-        withExternalPath('https://github.com/mattermost/mattermost-plugin-demo/releases/download/v0.10.0/com.mattermost.demo-plugin-0.10.0.tar.gz');
+        withExternalURL('https://github.com/mattermost/mattermost-plugin-demo/releases/download/v0.10.0/com.mattermost.demo-plugin-0.10.0.tar.gz');
 
     mattermost = await new MattermostContainer().
         withPlugin(demoPluginInstance).

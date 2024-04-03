@@ -21,7 +21,7 @@ export default class MattermostPlugin {
         this.config = config;
     }
 
-    withExternalPath = (externalPath: string): MattermostPlugin => {
+    withExternalURL = (externalPath: string): MattermostPlugin => {
         this.isExternal = true;
         this.path = externalPath;
 
