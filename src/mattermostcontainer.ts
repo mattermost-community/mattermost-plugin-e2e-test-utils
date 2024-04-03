@@ -111,16 +111,16 @@ export default class MattermostContainer {
     };
 
     installPluginFromLocalBinary = async (plugin: MattermostPlugin) => {
-        const {packageName} = plugin.config;
+        const {pluginId} = plugin.config;
 
-        const patch = JSON.stringify({PluginSettings: {Plugins: {[packageName]: plugin.config}}});
+        const patch = JSON.stringify({PluginSettings: {Plugins: {[pluginId]: plugin.config}}});
 
         await this.container.copyFilesToContainer([{source: plugin.path, target: '/tmp/plugin.tar.gz'}]);
         await this.container.copyContentToContainer([{content: patch, target: '/tmp/plugin.config.json'}]);
 
         await this.container.exec(['mmctl', '--local', 'plugin', 'add', '/tmp/plugin.tar.gz']);
         await this.container.exec(['mmctl', '--local', 'config', 'patch', '/tmp/plugin.config.json']);
-        await this.container.exec(['mmctl', '--local', 'plugin', 'enable', packageName]);
+        await this.container.exec(['mmctl', '--local', 'plugin', 'enable', pluginId]);
     };
 
     installPluginFromUrl = async (plugin: MattermostPlugin) => {

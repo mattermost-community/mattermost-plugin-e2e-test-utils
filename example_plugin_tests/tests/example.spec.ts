@@ -11,7 +11,7 @@ let demoPluginInstance: MattermostPlugin;
 
 test.beforeAll(async () => {
     demoPluginInstance = new MattermostPlugin({
-        packageName: 'com.mattermost.demo-plugin',
+        pluginId: 'com.mattermost.demo-plugin',
         clientid: 'client-id',
         clientsecret: 'client-secret',
         connectedusersallowed: 1000,

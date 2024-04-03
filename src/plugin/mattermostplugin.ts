@@ -1,7 +1,7 @@
 import fs from 'fs';
 
 type Config = {
-    packageName: string
+    pluginId: string
     clientid: string
     clientsecret: string
     connectedusersallowed: number
