@@ -1,7 +1,4 @@
 {
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "always"
-  },
   "eslint.validate": ["javascript"],
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
