@@ -118,14 +118,14 @@ export default class MattermostContainer {
         await this.container.copyFilesToContainer([{source: plugin.path, target: '/tmp/plugin.tar.gz'}]);
         await this.container.copyContentToContainer([{content: patch, target: '/tmp/plugin.config.json'}]);
 
-        await this.container.exec(['mmctl', '--local', 'plugin', 'add', '/tmp/plugin.tar.gz']);
+        await this.container.exec(['mmctl', '--local', '--force', 'plugin', 'add', '/tmp/plugin.tar.gz']);
         await this.container.exec(['mmctl', '--local', 'config', 'patch', '/tmp/plugin.config.json']);
         await this.container.exec(['mmctl', '--local', 'plugin', 'enable', pluginId]);
     };
 
     installPluginFromUrl = async (plugin: MattermostPlugin<unknown>) => {
         const client = await this.getAdminClient();
-        const manifest = await client.installPluginFromUrl(plugin.path);
+        const manifest = await client.installPluginFromUrl(plugin.path, true);
         await this.container.exec(['mmctl', '--local', 'plugin', 'enable', manifest.id]);
     };
 
