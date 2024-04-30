@@ -26,6 +26,7 @@ test.beforeAll(async () => {
 
     mattermost = await new MattermostContainer().
         withPlugin(demoPluginInstance).
+        withEnv('MM_FILESETTINGS_ENABLEPUBLICLINK', 'true').
         startWithUserSetup();
 });
 
