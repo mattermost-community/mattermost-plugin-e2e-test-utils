@@ -6,9 +6,9 @@ type MattermostPluginOptions<PluginConfigType> = {
 }
 
 export default class MattermostPlugin<PluginConfigType> {
+    public path: string;
     options: MattermostPluginOptions<PluginConfigType>;
     isExternal: boolean = false;
-    path: string;
 
     constructor(options: MattermostPluginOptions<PluginConfigType>) {
         this.options = options;
