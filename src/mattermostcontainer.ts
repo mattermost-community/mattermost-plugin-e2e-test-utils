@@ -14,9 +14,9 @@ const defaultMattermostImage = 'mattermost/mattermost-enterprise-edition';
 
 // MattermostContainer represents the mattermost container type used in the module
 export default class MattermostContainer {
-    container: StartedTestContainer;
-    pgContainer: StartedPostgreSqlContainer;
-    network: StartedNetwork;
+    container!: StartedTestContainer;
+    pgContainer!: StartedPostgreSqlContainer;
+    network!: StartedNetwork;
     email: string;
     username: string;
     password: string;
@@ -24,7 +24,7 @@ export default class MattermostContainer {
     teamDisplayName: string;
     envs: {[key: string]: string};
     command: string[];
-    configFile: any[];
+    configFile: {source: string, target: string}[];
     plugins: MattermostPlugin<unknown>[];
 
     constructor() {
@@ -55,7 +55,7 @@ export default class MattermostContainer {
         return `http://${host}:${containerPort}`;
     }
 
-    db = async (): Client => {
+    db = async (): Promise<Client> => {
         const port = this.pgContainer.getMappedPort(5432);
         const host = this.pgContainer.getHost();
         const database = 'mattermost_test';

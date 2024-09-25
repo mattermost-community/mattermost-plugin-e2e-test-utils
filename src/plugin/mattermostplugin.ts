@@ -11,6 +11,7 @@ export default class MattermostPlugin<PluginConfigType> {
     isExternal: boolean = false;
 
     constructor(options: MattermostPluginOptions<PluginConfigType>) {
+        this.path = '';
         this.options = options;
     }
 
