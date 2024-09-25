@@ -17,13 +17,14 @@ class MattermostPlugin {
             const files = fs_1.default.readdirSync(path);
             for (const file of files) {
                 if (file.endsWith('.tar.gz')) {
-                    filename = path + file;
+                    filename = `${path}/${file}`;
                     break;
                 }
             }
             if (filename === '') {
                 throw Error('No tar.gz file found in dist folder');
             }
+            this.path = filename;
             return this;
         };
         this.path = '';

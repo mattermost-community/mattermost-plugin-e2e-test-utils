@@ -129,6 +129,7 @@ class MattermostContainer {
                 withWaitStrategy(testcontainers_1.Wait.forLogMessage('Server is listening on')).
                 withCopyFilesToContainer(this.configFile).
                 start();
+            console.log('container initialized', this.container);
             yield this.setSiteURL();
             yield this.createAdmin(this.email, this.username, this.password);
             yield this.createTeam(this.teamName, this.teamDisplayName);
@@ -143,6 +144,7 @@ class MattermostContainer {
                 }
             }
             yield Promise.all(pluginsToInstall);
+            console.log('plugins installed', pluginsToInstall);
             return this;
         });
         this.startWithUserSetup = () => __awaiter(this, void 0, void 0, function* () {
