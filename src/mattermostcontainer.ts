@@ -72,7 +72,8 @@ export default class MattermostContainer {
         const url = this.url();
         const client = new Client4();
         client.setUrl(url);
-        await client.login(username, password);
+        const profile = await client.login(username, password);
+        client.setUserId(profile.id);
         return client;
     };
 
